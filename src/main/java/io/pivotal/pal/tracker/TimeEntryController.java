@@ -1,12 +1,11 @@
-package io.pivotal.pal.tracker.controller;
+package io.pivotal.pal.tracker;
 
-import io.pivotal.pal.tracker.bean.TimeEntry;
-import io.pivotal.pal.tracker.bean.TimeEntryRepository;
+import io.pivotal.pal.tracker.TimeEntry;
+import io.pivotal.pal.tracker.TimeEntryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

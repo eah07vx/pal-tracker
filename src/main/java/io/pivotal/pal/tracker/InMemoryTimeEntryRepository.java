@@ -1,4 +1,4 @@
-package io.pivotal.pal.tracker.bean;
+package io.pivotal.pal.tracker;
 
 
 import java.util.*;
@@ -13,7 +13,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
-    public TimeEntry find(long id) {
+    public TimeEntry find(Long id) {
 
         return list.get(new Long(id));
     }
@@ -33,7 +33,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
-    public TimeEntry update(long id, TimeEntry timeEntry) {
+    public TimeEntry update(Long id, TimeEntry timeEntry) {
 
         timeEntry.setId(id);
         list.replace(new Long(id), timeEntry);
@@ -42,7 +42,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
-    public Long delete(long id) {
+    public Long delete(Long id) {
         Long Id = new Long(id);
         if (!list.isEmpty() && list.containsKey(Id)) {
             list.remove(Id);
