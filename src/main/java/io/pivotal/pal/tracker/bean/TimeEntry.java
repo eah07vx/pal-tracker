@@ -1,6 +1,7 @@
-package io.pivotal.pal.tracker;
+package io.pivotal.pal.tracker.bean;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class TimeEntry {
     private long id;
@@ -18,14 +19,18 @@ public class TimeEntry {
 
     }
 
-    public TimeEntry(long id, long projectId, LocalDate date, int hours) {
-        this(id, id, 0L, date, hours);
+    public TimeEntry(long projectId, long userid, LocalDate date, int hours) {
+        this(1L, projectId, userid, date, hours);
 
     }
 
     public TimeEntry(long id, long projectId, long userId, LocalDate date) {
         this(id, projectId, userId, date, 0);
 
+    }
+
+    public TimeEntry() {
+        this(1L, 1L, 1L, null, 0);
     }
 
     public long getId() {
@@ -69,8 +74,21 @@ public class TimeEntry {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimeEntry timeEntry = (TimeEntry) o;
+        return id == timeEntry.id &&
+                projectId == timeEntry.projectId &&
+                userId == timeEntry.userId &&
+                hours == timeEntry.hours &&
+                Objects.equals(date, timeEntry.date);
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, projectId, userId, date, hours);
+    }
 }
 

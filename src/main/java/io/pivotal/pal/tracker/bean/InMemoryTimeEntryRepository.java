@@ -1,19 +1,15 @@
-package io.pivotal.pal.tracker;
+package io.pivotal.pal.tracker.bean;
 
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryTimeEntryRepository implements TimeEntryRepository {
 
-    private TimeEntry timeEntry;
     private HashMap<Long, TimeEntry> list;
-
+    private long incrementCounter = 1;
 
     public InMemoryTimeEntryRepository(){
-
+        list = new HashMap();
     }
 
     @Override
@@ -25,31 +21,35 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     @Override
     public TimeEntry create(TimeEntry timeEntry) {
 
-        this.timeEntry = timeEntry;
-        this.list.put(timeEntry.getId(),timeEntry);
+        timeEntry.setId(new Long(incrementCounter));
+        list.put(new Long(incrementCounter),timeEntry);
+        incrementCounter++;
         return timeEntry;
     }
 
     @Override
-    public LinkedList list() {
-        return (LinkedList)list.values();
+    public List<TimeEntry> list() {
+        return new ArrayList<TimeEntry> (list.values());
     }
 
     @Override
     public TimeEntry update(long id, TimeEntry timeEntry) {
 
-        this.delete(id);
-        list.put(new Long(id), timeEntry);
+        timeEntry.setId(id);
+        list.replace(new Long(id), timeEntry);
 
         return timeEntry;
     }
 
     @Override
-    public void delete(long id) {
+    public Long delete(long id) {
         Long Id = new Long(id);
         if (!list.isEmpty() && list.containsKey(Id)) {
             list.remove(Id);
+        } else {
+            Id = new Long(-1);
         }
+        return Id;
     }
 
 }
