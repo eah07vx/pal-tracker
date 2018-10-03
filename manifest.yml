@@ -6,4 +6,3 @@ applications:
     - route: pal-tracker-chris-ash.apps.evans.pal.pivotal.io
   env:
     WELCOME_MESSAGE: Hello from the review environment
-    MANAGEMENT_SECURITY_ENABLED: false
